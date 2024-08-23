@@ -46,6 +46,12 @@ public:
     {
         return (weightedInput > 0) ? weightedInput : 0;
     }
+
+    double NodeCost(double outputActivation, double expectedOutput)
+    {
+        double error = outputActivation - expectedOutput;
+        return error * error;
+    }
 };
 
 class NeuralNetwork
@@ -78,10 +84,58 @@ public:
         std::vector<double> outputs = feedForward(inputs);
         return std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end()));
     }
+
+    // TODO: edit input variable
+    double Loss(const std::vector<double> &inputs, const std::vector<double> &expectedOutputs)
+    {
+        std::vector<double> outputs = feedForward(inputs);
+        Layer &outputLayer = layers[layers.size() - 1];
+        double cost = 0;
+        for (size_t nodeOut = 0; nodeOut < outputs.size(); nodeOut++)
+        {
+            cost += outputLayer.NodeCost(outputs[nodeOut], expectedOutputs[nodeOut]);
+        }
+        return cost;
+    }
+
+    double Loss(const std::vector<std::vector<double>> &inputsList, const std::vector<std::vector<double>> &expectedOutputsList)
+    {
+        double totalCost = 0.0;
+
+        for (size_t i = 0; i < inputsList.size(); ++i)
+        {
+            const std::vector<double> &inputs = inputsList[i];
+            const std::vector<double> &expectedOutputs = expectedOutputsList[i];
+
+            // Compute cost for the current data point and add to total cost
+            double dataPointCost = Loss(inputs, expectedOutputs);
+            totalCost += dataPointCost;
+        }
+        return totalCost / inputsList.size();
+    }
 };
 
 int main(void)
 {
+
     std::vector<int> layerSizes = {2, 3, 2};
     NeuralNetwork network(layerSizes);
+
+    std::vector<double> input = {1.0, 0.5};
+
+    std::vector<double> output = network.feedForward(input);
+
+    // print
+    std::cout << "Output values: ";
+    for (const auto &value : output)
+    {
+        std::cout << value << " ";
+    }
+    std::cout << std::endl;
+
+    // Classify & Print
+    int classification = network.Classify(input);
+    std::cout << "Classified as: " << classification << std::endl;
+
+    return 0;
 }
