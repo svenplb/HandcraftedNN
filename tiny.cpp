@@ -20,8 +20,9 @@ int main(void) {
 }
 
 int classify(double input_1, double input_2) {
-	double output_1 = input_1 * weight_1_1 + input_2 * weight_2_1 + bias;
-	double output_2 = input_2 * weight_2_1 + input_2 * weight_2_2 + bias;
+	// f(x) = k*x+d | lienar function, network with 2 input nodes and 2 output nodes, no hidden layers
+	double output_1 = input_1 * weight_1_1 + input_2 * weight_2_1 + bias_1;
+	double output_2 = input_2 * weight_1_2 + input_2 * weight_2_2 + bias_2;
 
 	cout << output_1;
 	cout << output_2;
