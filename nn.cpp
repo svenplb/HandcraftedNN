@@ -24,7 +24,7 @@ public:
     std::vector<double> CalculateOutputs(const std::vector<double> &inputs)
     {
         // create vector of output values, initialize with 0
-        std::vector<double> weightedOutputs(numNodesOut, 0.0);
+        std::vector<double> activations(numNodesOut, 0.0);
 
         // calculate weighed sum of each output node
         // outputNode = (input1*weight1) + (input1*weight2) + (input2*weight3) + (input2*weight_2_1)
@@ -37,10 +37,14 @@ public:
                 weightedInput += inputs[nodeIn] * weights[nodeIn][nodeOut];
             }
             // add WeightedSum of output node to the weightedInputs
-            weightedOutputs[nodeOut] = weightedInput;
+            activations[nodeOut] = ActivationFunction(weightedInput);
         }
 
-        return weightedOutputs;
+        return activations;
+    }
+    double ActivationFunction(double weightedInput)
+    {
+        return (weightedInput > 0) ? weightedInput : 0;
     }
 };
 
