@@ -1,0 +1,52 @@
+# C++ build files
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.out
+*.a
+*.lib
+*.pdb
+*.d
+
+# VSCode settings
+.vscode/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Build directories
+build/
+bin/
+debug/
+release/
+
+# Compiled object files
+*.class
+
+# Logs
+*.log
+
+# User-specific files
+*.user
+*.userossc
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.suo
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+*.ninja
+
+# Code coverage
+coverage/
+
+# Dependency directories
+external/
