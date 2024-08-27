@@ -86,6 +86,7 @@ public:
     }
 
     // TODO: edit input variable
+    // take in a vector of inputs
     double Loss(const std::vector<double> &inputs, const std::vector<double> &expectedOutputs)
     {
         std::vector<double> outputs = feedForward(inputs);
@@ -98,6 +99,7 @@ public:
         return cost;
     }
 
+    // loss function, takes in set of inputs and a list of expected outputs
     double Loss(const std::vector<std::vector<double>> &inputsList, const std::vector<std::vector<double>> &expectedOutputsList)
     {
         double totalCost = 0.0;
@@ -118,20 +120,9 @@ public:
 int main(void)
 {
 
-    std::vector<int> layerSizes = {2, 3, 2};
-    NeuralNetwork network(layerSizes);
+    NeuralNetwork network({2, 3, 2});
 
     std::vector<double> input = {1.0, 0.5};
-
-    std::vector<double> output = network.feedForward(input);
-
-    // print
-    std::cout << "Output values: ";
-    for (const auto &value : output)
-    {
-        std::cout << value << " ";
-    }
-    std::cout << std::endl;
 
     // Classify & Print
     int classification = network.Classify(input);
